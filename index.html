@@ -12,6 +12,9 @@
         h1 {
             color: #0B3954;
         }
+        .green{
+            color: green;
+        }
     </style>
 </head>
 <body>
@@ -27,6 +30,27 @@
 </div>
 <script>
     alert('Witamy witamy');
+    // szukanie po identyfikatorze
+    const header = document.getElementById('main-header');
+    alert(header.innerText);
+    // szukanie po selektorach (tak jak w CSS)
+    const nudy = document.querySelectorAll("#app .boring");
+    nudy.forEach(element => {
+        alert(`Nuda: ${element.innerText}`);
+        element.classList.remove('boring');
+    });
+    let div = document.createElement('div');
+    div.classList.add('green');
+    div.innerText = 'Zielony tekst (jeśli dodasz CSS)';
+    document.getElementById('app').append(div); // jest też prepend
+
+    let listItem = document.createElement('li');
+    listItem.innerText = 'Zagrać';
+    // dodaję na koniec listy
+    document.querySelector("#app ol li:last-child").after(listItem); // jest też before
+
+    document.querySelectorAll("#app .boring").forEach((e) => e.remove());
+
 </script>
 </body>
 </html>
