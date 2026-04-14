@@ -28,6 +28,16 @@
         <li id="super-important">Zaimplementować</li>
     </ol>
     <button type="button" onclick="removeBoringStuff()">Usuń nudne rzeczy</button>
+    <br>
+    <br>
+    <p>Pole tekstowe</p>
+    <input type="text" id="myTextField">
+    <br>
+    <p>Pole typu checkbox</p>
+    <input type="checkbox" id="myCheckbox">
+    <br>
+    <p>Zwykły przycisk</p>
+    <button type="button" onclick="readValues()">Odczytaj wartości</button>
 </div>
 <script>
     // alert('Witamy witamy');
@@ -52,6 +62,15 @@
     function removeBoringStuff() {
         document.querySelectorAll("#app .boring")
             .forEach((e) => e.remove());
+    }
+    // tu z czacikiem musze sie dogadac co popierdzieliłem
+
+    function readValues() {
+        const myTextField = document.getElementById("myTextField");
+        const myCheckbox = document.getElementById("myCheckbox");
+        if(myTextField.value !== "" && myCheckbox.checked) {
+            alert(myTextField.value);
+        }
     }
 </script>
 </body>
