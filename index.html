@@ -8,70 +8,33 @@
             padding: 0;
             font-family: Arial, serif;
         }
-
-        h1 {
-            color: #0B3954;
-        }
-        .green{
-            color: green;
+        .gameBoard{
+            width: 300px;
+            height: 300px;
+            border: 2px solid black;
+            border-radius: 12px;
+            margin: 0 0 0 100px;
         }
     </style>
 </head>
 <body>
-<div id="app">
-    <h1 id="main-header">Moja aplikacja</h1>
-    <p>To będzie gra. A oto co muszę zrobić:</p>
-    <ol>
-        <li class="boring">Nauczyć się HTML</li>
-        <li class="boring">Nauczyć się CSS</li>
-        <li>Nauczyć się JS</li>
-        <li id="super-important">Zaimplementować</li>
-    </ol>
-    <button type="button" onclick="removeBoringStuff()">Usuń nudne rzeczy</button>
-    <br>
-    <br>
-    <p>Pole tekstowe</p>
-    <input type="text" id="myTextField">
-    <br>
-    <p>Pole typu checkbox</p>
-    <input type="checkbox" id="myCheckbox">
-    <br>
-    <p>Zwykły przycisk</p>
-    <button type="button" onclick="readValues()">Odczytaj wartości</button>
+<div class="navBar">
+    <div class="logo">
+        <h1>Refleksomierzacz</h1>
+    </div>
+    <div class="Options">
+        <button>Start</button>
+        <button>Stop</button>
+    </div>
 </div>
-<script>
-    // alert('Witamy witamy');
-    // // szukanie po identyfikatorze
-    // const header = document.getElementById('main-header');
-    // alert(header.innerText);
-    // // szukanie po selektorach (tak jak w CSS)
-    // const nudy = document.querySelectorAll("#app .boring");
-    // nudy.forEach(element => {
-    //     alert(`Nuda: ${element.innerText}`);
-    //     element.classList.remove('boring');
-    // });
-    // let div = document.createElement('div');
-    // div.classList.add('green');
-    // div.innerText = 'Zielony tekst (jeśli dodasz CSS)';
-    // document.getElementById('app').append(div); // jest też prepend
-    //
-    // let listItem = document.createElement('li');
-    // listItem.innerText = 'Zagrać';
-    // // dodaję na koniec listy
-    // document.querySelector("#app ol li:last-child").after(listItem); // jest też before
-    function removeBoringStuff() {
-        document.querySelectorAll("#app .boring")
-            .forEach((e) => e.remove());
-    }
-    // tu z czacikiem musze sie dogadac co popierdzieliłem
+<hr class="dashed">
+<div id="app">
+    <div class="gameBoard"></div>
+</div>
+<hr class="dashed">
 
-    function readValues() {
-        const myTextField = document.getElementById("myTextField");
-        const myCheckbox = document.getElementById("myCheckbox");
-        if(myTextField.value !== "" && myCheckbox.checked) {
-            alert(myTextField.value);
-        }
-    }
+<script>
+
 </script>
 </body>
 </html>
