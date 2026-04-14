@@ -43,20 +43,117 @@
 <div class="Score">
     <div class="info1">
         <h3>Najkrótszy czas reakcji: </h3>
-        <p id="dynamicScoreValue1">test</p>
+        <p id="dynamicScoreValue1">Kliknij start</p>
     </div>
     <div class="info2">
         <h3>Najdłuższy czas reakcji: </h3>
-        <p id="dynamicScoreValue2">test</p>
+        <p id="dynamicScoreValue2">Kliknij start</p>
     </div>
     <div class="info3">
         <h3>Średni czas reakcji: </h3>
-        <p id="dynamicScoreValue3">test</p>
+        <p id="dynamicScoreValue3">Kliknij start</p>
     </div>
 </div>
 
 <script>
+    const startBtn = document.querySelector(".Options button:nth-child(1)");
+    const stopBtn = document.querySelector(".Options button:nth-child(2)");
+    const gameBoard = document.querySelector(".gameBoard");
 
+    const minEl = document.getElementById("dynamicScoreValue1");
+    const maxEl = document.getElementById("dynamicScoreValue2");
+    const avgEl = document.getElementById("dynamicScoreValue3");
+
+    let isPlaying = false;
+    let waitingForClick = false;
+    let startTime = 0;
+    let timeoutId = null;
+
+    let results = [];
+    let attempts = 0;
+    const MAX_ATTEMPTS = 5;
+
+    // START
+    startBtn.addEventListener("click", () => {
+        resetGame();
+        isPlaying = true;
+        nextRound();
+    });
+
+    // STOP
+    stopBtn.addEventListener("click", () => {
+        stopGame();
+    });
+
+    // KLIK NA PLANSZY
+    gameBoard.addEventListener("click", () => {
+        if (!isPlaying) return;
+
+        // klik za wcześnie
+        if (!waitingForClick) {
+            alert("Za wcześnie!");
+            return;
+        }
+
+        const reactionTime = Date.now() - startTime;
+        results.push(reactionTime);
+        attempts++;
+
+        updateStats();
+
+        waitingForClick = false;
+        gameBoard.style.backgroundColor = "orange";
+
+        if (attempts < MAX_ATTEMPTS) {
+            nextRound();
+        } else {
+            stopGame();
+        }
+    });
+
+    // LOSOWANIE KOLEJNEJ RUNDY
+    function nextRound() {
+        const delay = Math.random() * 3000 + 1000; // 1–4 sek
+
+        timeoutId = setTimeout(() => {
+            gameBoard.style.backgroundColor = "green";
+            startTime = Date.now();
+            waitingForClick = true;
+        }, delay);
+    }
+
+    // RESET
+    function resetGame() {
+        clearTimeout(timeoutId);
+        results = [];
+        attempts = 0;
+        isPlaying = false;
+        waitingForClick = false;
+
+        gameBoard.style.backgroundColor = "orange";
+
+        minEl.innerText = "-";
+        maxEl.innerText = "-";
+        avgEl.innerText = "-";
+    }
+
+    // STOP
+    function stopGame() {
+        isPlaying = false;
+        waitingForClick = false;
+        clearTimeout(timeoutId);
+    }
+
+    // STATYSTYKI
+    function updateStats() {
+        const min = Math.min(...results);
+        const max = Math.max(...results);
+        const avg = results.reduce((a, b) => a + b, 0) / results.length;
+
+        minEl.innerText = min + " ms";
+        maxEl.innerText = max + " ms";
+        avgEl.innerText = Math.round(avg) + " ms";
+    }
 </script>
 </body>
 </html>
